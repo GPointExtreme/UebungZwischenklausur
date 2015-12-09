@@ -1,3 +1,5 @@
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 public class FourWins {
 	
 	private int sizeX;
@@ -15,24 +17,48 @@ public class FourWins {
 		}
 	}
 	
-	public boolean playerA(int x, int y) {
+	public boolean playerA(int x) {
+		int y = ColumY(x);
 		if(charArray[x][y] == ' ') {
 			charArray[x][y] = 'A';
 			return true;
+		}
+		else if (y == -1){
+			System.out.println("Reihe ist voll!");
+			return false;
 		}
 		else {
 			return false;
 		}
 	}
 	
-	public boolean playerB(int x, int y) {
+	public boolean playerB(int x) {
+		int y = ColumY(x);
 		if(charArray[x][y] == ' ') {
 			charArray[x][y] = 'B';
 			return true;
 		}
+		else if (y == -1){
+			System.out.println("Reihe ist voll!");
+			return false;
+		}
 		else {
 			return false;
 		}
+	}
+	
+	//A oder B wir nur bei X eingeworfen und Methode soll Y retour geben.
+	private int ColumY(int x) {
+		
+		for(int i = sizeY-1; i >= 0; i--) {
+			if(charArray[x][i] != ' ') {
+				continue;
+			}
+			else {
+				return i;
+			}	
+		}
+		return -1; 
 	}
 	
 	private char fourInRow() {
